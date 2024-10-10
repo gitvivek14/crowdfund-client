@@ -11,14 +11,16 @@
   },
   "dependencies": {
     "@thirdweb-dev/react": "^3.10.3",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
-    "thirdweb": "^5.61.4",
-    "dotenv": "^16.4.5"
+    "thirdweb": "^5.61.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "buffer": "^6.0.3",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",

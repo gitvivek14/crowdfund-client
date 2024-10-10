@@ -23,7 +23,8 @@ export const StateContextProvider = ({ children }) => {
 
   // create the client with your clientId, or secretKey if in a server environment
   const client = createThirdwebClient({
-    clientId: import.meta.env.VITE_THIRDWEB_SECRET_KEY,
+    clientId: import.meta.env.VITE_THIRDWEB_CLIENT_ID,
+    secretKey: import.meta.env.VITE_THIRDWEB_SECRET_KEY,
   });
   // connect to your contract
   const contract = getContract({
@@ -31,8 +32,9 @@ export const StateContextProvider = ({ children }) => {
     chain: defineChain(11155111),
     address: "0x293e3F16b358F14329eb10cd5cF993E2abd53D45",
   });
-  const address = useAddress();
-  const connect = useMetamask();
+
+  let address = useAddress();
+  let connect = useMetamask();
 
   const publishCampaign = async (form) => {
     try {
@@ -54,32 +56,144 @@ export const StateContextProvider = ({ children }) => {
   };
 
   const getCampaigns = async () => {
-    const campaigns = await contract.call("getCampaigns");
+    // const campaigns = await contract.call("getCampaigns");
 
-    const parsedCampaings = campaigns.map((campaign, i) => ({
-      owner: campaign.owner,
-      title: campaign.title,
-      description: campaign.description,
-      target: ethers.utils.formatEther(campaign.target.toString()),
-      deadline: campaign.deadline.toNumber(),
-      amountCollected: ethers.utils.formatEther(
-        campaign.amountCollected.toString()
-      ),
-      image: campaign.image,
-      pId: i,
-    }));
-
-    return parsedCampaings;
+    // const parsedCampaings = campaigns.map((campaign, i) => ({
+    //   owner: campaign.owner,
+    //   title: campaign.title,
+    //   description: campaign.description,
+    //   target: ethers.utils.formatEther(campaign.target.toString()),
+    //   deadline: campaign.deadline.toNumber(),
+    //   amountCollected: ethers.utils.formatEther(
+    //     campaign.amountCollected.toString()
+    //   ),
+    //   image: campaign.image,
+    //   pId: i,
+    // }));
+    const dummyCampaigns = [
+      {
+        owner: "0x1234567890abcdef1234567890abcdef12345678",
+        title: "Clean Water Initiative",
+        description:
+          "A campaign to provide clean drinking water to rural areas.",
+        target: ethers.utils.formatEther("5000000000000000000"), // 5 ETH
+        deadline: 1672531199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("2500000000000000000"), // 2.5 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg ",
+        pId: 0,
+      },
+      {
+        owner: "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
+        title: "School Supplies for Kids",
+        description:
+          "Help provide school supplies to underprivileged children.",
+        target: ethers.utils.formatEther("1000000000000000000"), // 1 ETH
+        deadline: 1675123199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("500000000000000000"), // 0.5 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 1,
+      },
+      {
+        owner: "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+        title: "Reforestation Project",
+        description:
+          "A project aimed at planting 10,000 trees in deforested areas.",
+        target: ethers.utils.formatEther("20000000000000000000"), // 20 ETH
+        deadline: 1677715199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("15000000000000000000"), // 15 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 2,
+      },
+      {
+        owner: "0xbeefbeefbeefbeefbeefbeefbeefbeefbeefbeef",
+        title: "Animal Shelter Support",
+        description:
+          "Raising funds to build a new wing for the local animal shelter.",
+        target: ethers.utils.formatEther("3000000000000000000"), // 3 ETH
+        deadline: 1680307199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("1000000000000000000"), // 1 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 3,
+      },
+      {
+        owner: "0xabcdefabcdefabcdefabcdefabcdefabcdefaaaa",
+        title: "Solar Energy for Schools",
+        description:
+          "Help install solar panels in schools to provide sustainable energy.",
+        target: ethers.utils.formatEther("10000000000000000000"), // 10 ETH
+        deadline: 1682899199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("3000000000000000000"), // 3 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 4,
+      },
+      {
+        owner: "0xfedcba09876543210987654321fedcba09876543",
+        title: "Community Library Expansion",
+        description:
+          "Expanding the community library with more books and learning spaces.",
+        target: ethers.utils.formatEther("2000000000000000000"), // 2 ETH
+        deadline: 1685491199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("1500000000000000000"), // 1.5 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 5,
+      },
+      {
+        owner: "0xabcdefabcdefabcdefabcdefabcdefabcdefaaaa",
+        title: "Healthcare Access for All",
+        description:
+          "Supporting underprivileged communities with access to basic healthcare services.",
+        target: ethers.utils.formatEther("5000000000000000000"), // 5 ETH
+        deadline: 1688083199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("2000000000000000000"), // 2 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 6,
+      },
+    ];
+    // return parsedCampaigns
+    return [...dummyCampaigns];
   };
 
   const getUserCampaigns = async () => {
-    const allCampaigns = await getCampaigns();
-
-    const filteredCampaigns = allCampaigns.filter(
-      (campaign) => campaign.owner === address
-    );
-
-    return filteredCampaigns;
+    // const allCampaigns = await getCampaigns();
+    // console.log(allCampaigns);
+    // const filteredCampaigns = allCampaigns.filter(
+    //   (campaign) => campaign.owner === address
+    // );
+    // return filteredCampaigns;
+    const myCampaigns = [
+      {
+        owner: "0xabcdefabcdefabcdefabcdefabcdefabcdefaaaa",
+        title: "Solar Energy for Schools",
+        description:
+          "Help install solar panels in schools to provide sustainable energy.",
+        target: ethers.utils.formatEther("10000000000000000000"), // 10 ETH
+        deadline: 1682899199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("3000000000000000000"), // 3 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 4,
+      },
+      {
+        owner: "0xabcdefabcdefabcdefabcdefabcdefabcdefaaaa",
+        title: "Healthcare Access for All",
+        description:
+          "Supporting underprivileged communities with access to basic healthcare services.",
+        target: ethers.utils.formatEther("5000000000000000000"), // 5 ETH
+        deadline: 1688083199, // Unix timestamp for a future date
+        amountCollected: ethers.utils.formatEther("2000000000000000000"), // 2 ETH collected
+        image:
+          "https://png.pngtree.com/thumb_back/fw800/background/20240506/pngtree-eerily-realistic-dark-forest-nature-wallpaper-in-8k-resolution-image_15725080.jpg",
+        pId: 6,
+      },
+    ];
+    return myCampaigns;
   };
 
   const donate = async (pId, amount) => {
