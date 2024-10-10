@@ -17,7 +17,7 @@ const FundCard = ({
 
   return (
     <div
-      className="sm:w-[288px] w-full rounded-[15px] bg-[#1c1c24] cursor-pointer"
+      className="sm:w-[288px] w-full rounded-[15px] bg-[#3e3e55] cursor-pointer"
       onClick={handleClick}
     >
       <img
@@ -33,7 +33,7 @@ const FundCard = ({
             alt="tag"
             className="w-[17px] h-[17px] object-contain"
           />
-          <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[12px] text-[#808191]">
+          <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[12px] text-[#585c8d]">
             Campaign
           </p>
         </div>

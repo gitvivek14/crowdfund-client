@@ -14,14 +14,14 @@ const Navbar = () => {
 
   return (
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
-      <div className="lg:flex-1 flex flex-row max-w-[458px] py-2 pl-4 pr-2 h-[52px] bg-[#1c1c24] rounded-[100px]">
+      <div className="lg:flex-1 flex flex-row max-w-[458px] py-2 pl-4 pr-2 h-[52px] bg-[##1dc071] rounded-[100px]border border-red-700">
         <input
           type="text"
           placeholder="Search for campaigns"
-          className="flex w-full font-epilogue font-normal text-[14px] placeholder:text-[#4b5264] text-white bg-transparent outline-none"
+          className="flex w-full font-epilogue font-normal text-[14px] placeholder:text-[#4b5264] text-white bg-transparent "
         />
 
-        <div className="w-[72px] h-full rounded-[20px] bg-[#4acd8d] flex justify-center items-center cursor-pointer">
+        <div className="w-[72px] h-full rounded-[20px] bg-[#1565C0] flex justify-center items-center cursor-pointer">
           <img
             src={search}
             alt="search"
@@ -34,7 +34,7 @@ const Navbar = () => {
         <CustomButton
           btnType="button"
           title={address ? "Create a campaign" : "Connect"}
-          styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
+          styles={address ? "bg-[#1565C0]" : "bg-[#8c6dfd]"}
           handleClick={() => {
             if (address) navigate("create-campaign");
             else connect();
@@ -109,7 +109,7 @@ const Navbar = () => {
             <CustomButton
               btnType="button"
               title={address ? "Create a campaign" : "Connect"}
-              styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
+              styles={address ? "bg-[#1565C0]" : "bg-[#8c6dfd]"}
               handleClick={() => {
                 if (address) navigate("create-campaign");
                 else connect();
