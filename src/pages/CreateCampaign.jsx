@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
@@ -104,7 +104,7 @@ const CreateCampaign = () => {
             placeholder="Select the category of your campaign"
             inputType=""
             value={form.image}
-            handleChange={(e) => handleFormFieldChange("image", e)}
+            handleChange={(e) => handleFormFieldChange("category", e)}
           />
           <FormField
             labelName="Campaign image *"

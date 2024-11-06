@@ -23,14 +23,14 @@ export const StateContextProvider = ({ children }) => {
 
   // create the client with your clientId, or secretKey if in a server environment
   const client = createThirdwebClient({
-    clientId: import.meta.env.VITE_THIRDWEB_CLIENT_ID,
-    secretKey: import.meta.env.VITE_THIRDWEB_SECRET_KEY,
-  });
+    clientId: import.meta.env.VITE_THIRDWEB_CLIENT_ID
+   });
+  
   // connect to your contract
   const contract = getContract({
-    client: client,
+    client,
     chain: defineChain(11155111),
-    address: "0x293e3F16b358F14329eb10cd5cF993E2abd53D45",
+    address: "0x293e3F16b358F14329eb10cd5cF993E2abd53D45"
   });
 
   let address = useAddress();
@@ -230,6 +230,7 @@ export const StateContextProvider = ({ children }) => {
         getCampaigns,
         getUserCampaigns,
         donate,
+        
         getDonations,
       }}
     >
