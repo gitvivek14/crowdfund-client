@@ -6,7 +6,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { StateContextProvider } from "./context/index.jsx";
 
 // const chainID = 11155111;
-console.log(import.meta.env.VITE_CHAIN_ID);
+
+if (typeof global === "undefined") {
+  var global = window;
+}
 createRoot(document.getElementById("root")).render(
   <ThirdwebProvider chainId={process.env.CHAIN_ID}>
     <Router>
