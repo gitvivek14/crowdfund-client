@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 
 function HeroSection() {
   return (
-    <div className="relative h-screen w-full bg-cover bg-center text-white" style={{ backgroundImage: "url('/path-to-your-background-image.jpg')" }}>
+    <div className="relative h-screen w-full bg-cover  bg-center text-white" style={{ backgroundImage: "url('/path-to-your-background-image.jpg')" }}>
       {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-70"></div>
 

@@ -5,6 +5,16 @@ import { Sidebar, Navbar } from "./components";
 import { CampaignDetails, CreateCampaign, Home, Profile } from "./pages";
 import HeroSection from "./components/HeroSection";
 
+const Layout = ({ children }) => (
+  <div className="flex">
+    <Sidebar />
+    <div className="flex-1">
+      <Navbar />
+      {children}
+    </div>
+  </div>
+);
+
 const App = () => {
   return (
     <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen flex flex-row">
@@ -14,12 +24,27 @@ const App = () => {
 
       <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
         {/* <Navbar /> */}
-
         <Routes>
           <Route path="/" element={<HeroSection/>} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/create-campaign" element={<CreateCampaign />} />
-          <Route path="/campaign-details/:id" element={<CampaignDetails />} />
+          <Route path="/home" element={
+            <Layout>
+            <Home></Home>
+          </Layout>}/>
+          <Route path="/profile" element={
+            <Layout>
+              <Profile />
+            </Layout>
+            } />
+          <Route path="/create-campaign" element={
+            <Layout>
+               <CreateCampaign />
+            </Layout>
+           } />
+          <Route path="/campaign-details/:id" element={
+            <Layout>
+              <CampaignDetails></CampaignDetails>
+            </Layout>
+          } />
         </Routes>
       </div>
     </div>
