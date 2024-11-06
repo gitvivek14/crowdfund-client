@@ -1,4 +1,5 @@
 import React, { useContext, createContext } from "react";
+import { prepareContractCall, sendTransaction } from "thirdweb";
 
 import {
   useAddress,
@@ -38,18 +39,27 @@ export const StateContextProvider = ({ children }) => {
 
   const publishCampaign = async (form) => {
     try {
-      const data = await createCampaign({
-        args: [
-          address, // owner
-          form.title, // title
-          form.description, // description
-          form.target,
-          new Date(form.deadline).getTime(), // deadline,
-          form.image,
-        ],
+      // const data = await createCampaign({
+      //   args: [
+      //     address, // owner
+      //     form.title, // title
+      //     form.description, // description
+      //     form.target,
+      //     new Date(form.deadline).getTime(), // deadline,
+      //     form.image,
+      //   ],
+      // });
+      const transaction = await prepareContractCall({
+        contract,
+        method: "function createCampaign(address _owner, string _title, string _description, uint256 _target, uint256 _deadline, string _image) returns (uint256)",
+        params: [address, form.title, form.description, form.target, new Date(form.deadline).getTime(), form.image]
       });
-
-      console.log("contract call success", data);
+      const { transactionHash } = await sendTransaction({
+        transaction,  
+        account : address
+      });
+      console.log(transactionHash)
+      console.log("contract call success", transaction);
     } catch (error) {
       console.log("contract call failure", error);
     }

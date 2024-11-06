@@ -103,7 +103,7 @@ const CreateCampaign = () => {
             labelName="Category *"
             placeholder="Select the category of your campaign"
             inputType=""
-            value={form.image}
+            value={form.category}
             handleChange={(e) => handleFormFieldChange("category", e)}
           />
           <FormField
