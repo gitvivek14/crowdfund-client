@@ -6,14 +6,14 @@ import CampaignList from "./CampaignCard";
 import HNavbar from "./HeroNavbar";
 import { Button } from "./ui/button";
 import Signup from "./Signup";
-import {herosection} from "../assets/index"
+import { herosection } from "../assets/index"
 function HeroSection() {
   return (
     <div className=" absolute top-0 left-0 w-full text-gray-900">
       {/* Hero Section */}
-      
+
       <div>
-        <HNavbar/>
+        <HNavbar />
       </div>
       <section
         className="relative h-screen w-full  text-white z-20"
@@ -101,52 +101,124 @@ function HeroSection() {
         </div>
       </section>
 
-     <section className=" relative w-full h-full flex flex-col items-start justify-center mx-auto py-4 px-4">
-      <div className="flex items-center justify-center absolute left-12 -top-10">
-        <p className="text-black font-bold">
-        Discover fundraisers inspired by what you care about
-        </p>
-      </div>
-      <div>
-      <CampaignList/>
-      </div>
+      <section className=" relative w-full h-full flex flex-col items-start justify-center mx-auto py-4 px-4">
+        <div className="flex items-center justify-center absolute left-12 -top-10">
+          <p className="text-black font-bold">
+            Discover fundraisers inspired by what you care about
+          </p>
+        </div>
+        <div>
+          <CampaignList />
+        </div>
 
-      {/* <div>
+        {/* <div>
         <Signup/>
       </div> */}
-      
-      </section> 
 
-      {/* Image Gallery Section */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-2 mx-auto">
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 1" className="w-full h-32 object-cover" />
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 2" className="w-full h-32 object-cover" />
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 3" className="w-full h-32 object-cover" />
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 4" className="w-full h-32 object-cover" />
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 5" className="w-full h-32 object-cover" />
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 6" className="w-full h-32 object-cover" />
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 7" className="w-full h-32 object-cover" />
-        <img src="https://www.shutterstock.com/shutterstock/photos/2537240967/display_1500/stock-photo-young-woman-enjoying-music-with-headphones-holding-a-phone-in-hand-sitting-on-a-couch-in-a-cozy-2537240967.jpg" alt="Gallery Image 8" className="w-full h-32 object-cover" />
       </section>
 
+      {/* Image Gallery Section */}
+      <section className="overflow-hidden">
+        <div className="flex space-x-2 animate-scroll">
+          {/* Row 1 */}
+          <div className="flex min-w-full space-x-8 mb-4">
+            <img src="https://www.shutterstock.com/image-photo/high-five-team-food-charity-600nw-2469643817.jpg" alt="Gallery Image 1" className="gallery-image" />
+            <img src="https://www.socialtables.com/wp-content/uploads/2016/10/iStock-540095978.jpg" alt="Gallery Image 2" className="gallery-image" />
+            <img src="https://www.eventbrite.com/blog/wp-content/uploads/2021/06/image13-min-768x432.webp" alt="Gallery Image 3" className="gallery-image" />
+            <img src="https://www.nspcc.org.uk/globalassets/images/events/2024/hero-25219-exp-2024-01.jpg?width=600&mode=crop&anchor=middlecenter" alt="Gallery Image 4" className="gallery-image" />
+            <img src="https://www.letsroam.com/explorer/wp-content/uploads/sites/10/2021/09/Planning-a-Charity-Event.jpg" alt="Gallery Image 5" className="gallery-image" />
+          </div>
+
+          {/* Duplicate row for continuous scrolling */}
+        </div>
+
+        <div className="flex space-x-2 animate-scroll delay-1000">
+          {/* Row 2 */}
+          <div className="flex min-w-full space-x-8 mb-4">
+            <img src="https://www.daischina.org/-/media/dais-dalian/news-and-events/ah2a6584.jpg?h=400&w=600&rev=a20ec78d4f7a4e47846f6c5f13a6c13d&hash=024E78ED5DC353D3F8DC9E97D5E57EB9" alt="Gallery Image 6" className="gallery-image" />
+            <img src="https://runabc.co.uk/images/2020/03/charity-run2-552235.jpg" alt="Gallery Image 7" className="gallery-image" />
+            <img src="https://www.opportunityvillage.org/wp-content/uploads/2023/09/pet-rescue-fundraising-ideas-5.jpg" alt="Gallery Image 8" className="gallery-image" />
+            <img src="https://www.classy.org/wp-content/uploads/2023/03/blog-hero-fundraising-ideas-opt.png" alt="Gallery Image 9" className="gallery-image" />
+            <img src="https://nonprofithub.org/wp-content/uploads/2022/05/Tech-Fundraising-blog-2.png" alt="Gallery Image 10" className="gallery-image" />
+          </div>
+
+          {/* Duplicate row for continuous scrolling */}
+        </div>
+      </section>
+
+
+
       {/* Footer Section */}
-      {/* <footer className="bg-gray-900 text-white py-8">
-        <div className="flex flex-col items-center">
-          <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
-          <div className="flex items-center max-w-md w-full">
-            <TextField
-              variant="filled"
-              placeholder="Your email"
-              className="bg-white rounded-l-md"
-              fullWidth
-              InputProps={{ disableUnderline: true }}
-            />
-            <Button variant="contained" color="primary" className="rounded-r-md">
-              ➤
-            </Button>
+      {<footer className="bg-white dark:bg-gray-900">
+        <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+          <div className="md:flex md:justify-between">
+            <div className="mb-6 md:mb-0">
+              <a href="/" className="flex items-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6IW2Rhw0_0gI3okYpmLf8XFayCUwRTyZ1YA&s" className="h-8 me-3" alt="SmartPledge Logo" />
+                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SmartPledge</span>
+              </a>
+            </div>
+            <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
+                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  <li className="mb-4">
+                    <a href="/" className="hover:underline">SmartPledge</a>
+                  </li>
+                  <li>
+                    <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
+                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  <li className="mb-4">
+                    <a href="https://github.com/Jain-Sameer/crowdfund-client" className="hover:underline">Github</a>
+                  </li>
+                  <li>
+                    <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Discord</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  <li className="mb-4">
+                    <a href="#" className="hover:underline">Privacy Policy</a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:underline">Terms & Conditions</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+          <div className="sm:flex sm:items-center sm:justify-between">
+            <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://flowbite.com/" className="hover:underline">SmartPledge™</a>. All Rights Reserved.</span>
+            <div className="flex mt-4 sm:justify-center sm:mt-0">
+              <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
+                  <path fillRule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clipRule="evenodd" />
+                </svg>
+                <span className="sr-only">Facebook page</span>
+              </a>
+              <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 16">
+                  <path d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z" />
+                </svg>
+                <span className="sr-only">Discord community</span>
+              </a>
+              {/* Add additional social media icons in similar fashion */}
+            </div>
           </div>
         </div>
-      </footer> */}
+      </footer>
+      }
+
+
+
     </div>
   );
 }
