@@ -224,7 +224,6 @@ export const StateContextProvider = ({ children }) => {
   
     try {
       const campaigns = await contract.getCampaigns();
-  
       const parsedCampaigns = campaigns.map((campaign, i) => ({
         owner: campaign.owner,
         title: campaign.title,

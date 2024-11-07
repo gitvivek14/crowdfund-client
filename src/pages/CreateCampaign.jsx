@@ -99,13 +99,16 @@ const CreateCampaign = () => {
         </div>
 
         <div className="flex flex-wrap gap-[40px]">
-          <FormField
-            labelName="Category *"
-            placeholder="Select the category of your campaign"
-            inputType=""
-            value={form.category}
-            handleChange={(e) => handleFormFieldChange("category", e)}
-          />
+        <FormField
+  labelName="Category *"
+  placeholder="Select the category of your campaign"
+  isSelect={true}
+  options={["Charity", "Fund"]}
+  value={form.category}
+  handleChange={(e) => handleFormFieldChange("category", e)}
+/>
+
+
           <FormField
             labelName="Campaign image *"
             placeholder="Place image URL of your campaign"
@@ -114,7 +117,7 @@ const CreateCampaign = () => {
             handleChange={(e) => handleFormFieldChange("image", e)}
           ></FormField>
         </div>
-        <div className="w-full flex justify-start items-center p-4 bg-[#8c6dfd] h-[120px] rounded-[10px]">
+        {/* <div className="w-full flex justify-start items-center p-4 bg-[#8c6dfd] h-[120px] rounded-[10px]">
           <img
             src={money}
             alt="money"
@@ -123,7 +126,7 @@ const CreateCampaign = () => {
           <h4 className="font-epilogue font-bold text-[25px] text-white ml-[20px]">
             You will get 100% of the raised amount
           </h4>
-        </div>
+        </div> */}
 
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton

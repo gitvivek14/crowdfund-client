@@ -1,27 +1,36 @@
 import React from "react";
-import Button from "@mui/material/Button";
+
 import TextField from "@mui/material/TextField";
 import { Search, Shield, Percent } from "@mui/icons-material";
-
+import CampaignList from "./CampaignCard";
+import HNavbar from "./HeroNavbar";
+import { Button } from "./ui/button";
+import Signup from "./Signup";
+import {herosection} from "../assets/index"
 function HeroSection() {
   return (
     <div className=" absolute top-0 left-0 w-full text-gray-900">
       {/* Hero Section */}
+      
+      <div>
+        <HNavbar/>
+      </div>
       <section
-        className="relative h-screen w-full  text-white"
-        style={{ backgroundImage: "url('/path-to-your-background-image.jpg')" }}
+        className="relative h-screen w-full  text-white z-20"
+        style={{ backgroundImage: herosection }}
       >
+        {/* <img src={herosection} style={{zIndex:-100}}></img> */}
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black opacity-70"></div>
+        {/* <div className="absolute inset-0 bg-black opacity-70"></div> */}
 
         {/* Navbar */}
-        <header className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10">
+        {/* <header className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10">
           <h1 className="text-lg font-semibold">SMART PLEDGE ©</h1>
           <div className="flex space-x-4">
             <a href="#" className="text-white hover:underline">Login</a>
             <a href="#" className="text-white hover:underline">Contact</a>
           </div>
-        </header>
+        </header> */}
 
         {/* Main Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center">
@@ -44,10 +53,10 @@ function HeroSection() {
 
           {/* Buttons */}
           <div className="flex space-x-4 mb-8">
-            <Button variant="contained" color="primary">
+            <Button variant="destructive">
               Donate to Charity
             </Button>
-            <Button variant="contained" color="primary">
+            <Button variant="secondary">
               Back a Project
             </Button>
           </div>
@@ -91,6 +100,22 @@ function HeroSection() {
           </div>
         </div>
       </section>
+
+     <section className=" relative w-full h-full flex flex-col items-start justify-center mx-auto py-4 px-4">
+      <div className="flex items-center justify-center absolute left-12 -top-10">
+        <p className="text-black font-bold">
+        Discover fundraisers inspired by what you care about
+        </p>
+      </div>
+      <div>
+      <CampaignList/>
+      </div>
+
+      {/* <div>
+        <Signup/>
+      </div> */}
+      
+      </section> 
 
       {/* Image Gallery Section */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-2 mx-auto">
