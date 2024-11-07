@@ -53,7 +53,7 @@ const FundCard = ({
               {amountCollected}
             </h4>
             <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
-              Raised of {target}
+              Raised of {target/10e17} ETH
             </p>
           </div>
           <div className="flex flex-col">
