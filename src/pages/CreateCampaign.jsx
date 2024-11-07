@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
 import { useStateContext } from "../context";
-import { money } from "../assets";
 import { CustomButton, FormField, Loader } from "../components";
 import { checkIfImage } from "../utils";
 
@@ -18,6 +17,7 @@ const CreateCampaign = () => {
     target: "",
     deadline: "",
     image: "",
+    category : ""
   });
 
   const handleFormFieldChange = (fieldName, e) => {
@@ -99,15 +99,14 @@ const CreateCampaign = () => {
         </div>
 
         <div className="flex flex-wrap gap-[40px]">
-        <FormField
-  labelName="Category *"
-  placeholder="Select the category of your campaign"
-  isSelect={true}
-  options={["Charity", "Fund"]}
-  value={form.category}
-  handleChange={(e) => handleFormFieldChange("category", e)}
-/>
-
+          <FormField
+            labelName="Category *"
+            placeholder="Select the category of your campaign"
+            isSelect={true}
+            options={["Charity", "Fund"]}
+            value={form.category}
+            handleChange={(e) => handleFormFieldChange("category", e)}
+          />
 
           <FormField
             labelName="Campaign image *"

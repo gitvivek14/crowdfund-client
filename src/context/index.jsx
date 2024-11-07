@@ -7,152 +7,239 @@ export const StateContextProvider = ({ children }) => {
   const [address, setAddress] = useState(null);
   const [contract, setContract] = useState(null);
 
-  const contractAddress = "0x293e3F16b358F14329eb10cd5cF993E2abd53D45";
+  const contractAddress = "0x70E08d0940BE1af49D7514ECF9e32526C5699128";
   const contractABI =
     // Add your contract's ABI here
-   [
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_owner",
-              "type": "address"
-            },
-            {
-              "internalType": "string",
-              "name": "_title",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "_description",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "_target",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "_deadline",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "_image",
-              "type": "string"
-            }
-          ],
-          "name": "createCampaign",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "_id",
-              "type": "uint256"
-            }
-          ],
-          "name": "donateToCampaign",
-          "outputs": [],
-          "stateMutability": "payable",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "getCampaigns",
-          "outputs": [
-            {
-              "components": [
-                {
-                  "internalType": "address",
-                  "name": "owner",
-                  "type": "address"
-                },
-                {
-                  "internalType": "string",
-                  "name": "title",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "description",
-                  "type": "string"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "target",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "deadline",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "amountCollected",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "string",
-                  "name": "image",
-                  "type": "string"
-                },
-                {
-                  "internalType": "address[]",
-                  "name": "donators",
-                  "type": "address[]"
-                },
-                {
-                  "internalType": "uint256[]",
-                  "name": "donations",
-                  "type": "uint256[]"
-                }
-              ],
-              "internalType": "struct CrowdFunding.Campaign[]",
-              "name": "",
-              "type": "tuple[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "_id",
-              "type": "uint256"
-            }
-          ],
-          "name": "getDonators",
-          "outputs": [
-            {
-              "internalType": "address[]",
-              "name": "",
-              "type": "address[]"
-            },
-            {
-              "internalType": "uint256[]",
-              "name": "",
-              "type": "uint256[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        }
-      ]
+    [
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "campaigns",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "target",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountCollected",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "image",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "isActive",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "_title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_description",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_target",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "_image",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "_category",
+            "type": "string"
+          }
+        ],
+        "name": "createCampaign",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          }
+        ],
+        "name": "donateToCampaign",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getCampaigns",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "target",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deadline",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "amountCollected",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "image",
+                "type": "string"
+              },
+              {
+                "internalType": "address[]",
+                "name": "donators",
+                "type": "address[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "donations",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "bool",
+                "name": "isActive",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct CrowdFunding.Campaign[]",
+            "name": "",
+            "type": "tuple[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          }
+        ],
+        "name": "getDonators",
+        "outputs": [
+          {
+            "internalType": "address[]",
+            "name": "",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "numberOfCampaigns",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ]
 
   // Set up provider, signer, and contract
   const initializeEthers = async () => {
@@ -170,13 +257,10 @@ export const StateContextProvider = ({ children }) => {
       const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
       setContract(contractInstance);
     } else {
+      alert("Please install Metamask!")
       console.error("Metamask not found");
     }
   };
-
-  useEffect(() => {
-    initializeEthers();
-  }, []);
 
   const connect = initializeEthers; // To reconnect when needed
 
@@ -188,7 +272,8 @@ export const StateContextProvider = ({ children }) => {
         form.description, 
         ethers.utils.parseEther(form.target.toString()), // Convert target to string if necessary
         new Date(form.deadline).getTime(),
-        form.image
+        form.image,
+        form.category
       );
       const receipt = await tx.wait();
       console.log("Contract call success", receipt);
@@ -224,6 +309,7 @@ export const StateContextProvider = ({ children }) => {
   
     try {
       const campaigns = await contract.getCampaigns();
+      console.log(campaigns)
       const parsedCampaigns = campaigns.map((campaign, i) => ({
         owner: campaign.owner,
         title: campaign.title,
@@ -232,7 +318,8 @@ export const StateContextProvider = ({ children }) => {
         deadline: campaign.deadline.toNumber(),
         amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
         image: campaign.image,
-        pId: i + dummyCampaigns.length, // Offset IDs for dummy campaigns
+        pId: i + dummyCampaigns.length,
+        category : campaign.category // Offset IDs for dummy campaigns
       }));
   
       // Combine dummy campaigns with real campaigns
@@ -248,19 +335,17 @@ export const StateContextProvider = ({ children }) => {
   const getUserCampaigns = async () => {
     const allCampaigns = await getCampaigns();
     let userCampaigns = [];
-
     allCampaigns.map(campaign => {
       if(campaign.owner.toLowerCase() == address.toLowerCase()) {
         userCampaigns.push(campaign)
       }
     })
-    console.log(userCampaigns)
     return userCampaigns
   };
 
   const donate = async (pId, amount) => {
     try {
-      const tx = await contract.donateToCampaign(pId, { value: ethers.utils.parseEther(amount) });
+      const tx = await contract.donateToCampaign(pId, {value: ethers.utils.parseEther(amount) });
       const receipt = await tx.wait();
       return receipt;
     } catch (error) {

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ethers } from "ethers";
 
 import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
@@ -20,7 +19,6 @@ const CampaignDetails = () => {
 
   const fetchDonators = async () => {
     const data = await getDonations(state.pId);
-
     setDonators(data);
   };
 
@@ -91,9 +89,6 @@ const CampaignDetails = () => {
                 <h4 className="font-epilogue font-semibold text-[14px] text-white break-all">
                   {state.owner}
                 </h4>
-                <p className="mt-[4px] font-epilogue font-normal text-[12px] text-[#808191]">
-                  10 Campaigns
-                </p>
               </div>
             </div>
           </div>
