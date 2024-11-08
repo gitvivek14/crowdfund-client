@@ -7,6 +7,12 @@ export const StateContextProvider = ({ children }) => {
   const [address, setAddress] = useState(null);
   const [contract, setContract] = useState(null);
 
+  useEffect(() => {
+   initializeEthers()
+  }, [])
+
+  
+
   const contractAddress = "0x70E08d0940BE1af49D7514ECF9e32526C5699128";
   const contractABI =
     // Add your contract's ABI here

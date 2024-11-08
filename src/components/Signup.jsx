@@ -1,52 +1,105 @@
-import React from 'react'
-import { Button } from './ui/button'
-import {Form,FormControl,FormDescription,
-    FormField,FormItem,FormLabel,FormMessage} from "@/components/ui/form"
-import { Input } from './ui/input'
-import {zodResolver} from "@hookform/resolvers/zod"
-import { useForm } from 'react-hook-form'
-import { z } from "zod";
+import { useState } from 'react'
 
-const formSchema = z.object({
-    email: z.string().email(),
-    username: z.string().min(3).max(50),
-    password: z.string().min(8),
-  });
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Link, useNavigate } from 'react-router-dom'
+import { useToast } from '@/hooks/use-toast'
 
-const onSubmit = (values) => {
-    console.log(values);
-  };
-  
-const Signup = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver:zodResolver(formSchema),
-        defaultValues: {
-            email: "",
-            username: "",
-            password: "",
-          },
-    })
+export default function SignupPage() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const { toast } = useToast()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Handle form submission logic here
+    console.log('Form submitted:', { name, email, password })
+    toast({
+        variant:"default",
+        title: "बधाई🎊🎊🎉 Signup Successfull",
+      })
+    navigate("/login")
+  }
+
   return (
-   <Form {...form}>
-    <form>
-    <FormField
-    name="username"
-    render={({ field }) => (
-        <FormItem>
-          <FormLabel>Username</FormLabel>
-          <FormControl>
-            <Input placeholder="shadcn" {...field} />
-          </FormControl>
-          <FormDescription>
-            This is your public display name.
-          </FormDescription>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-    </form>
-   </Form>
+    <div className="min-h-screen bg-[#13131A] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md bg-[#1A1A23] text-white border-[#2A2A35]">
+        <div className="flex justify-center pt-8 pb-4">
+          {/* Replace with your actual logo */}
+          <div className="w-24 h-24 relative">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6IW2Rhw0_0gI3okYpmLf8XFayCUwRTyZ1YA&s"
+              alt="Company Logo"
+              layout="fill"
+              objectFit="contain"
+              className="rounded-full bg-white p-2"
+            />
+          </div>
+        </div>
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-center">Create an Account</CardTitle>
+          <CardDescription className="text-gray-400 text-center">Sign up to get started with our service</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-sm font-medium text-gray-200">Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="bg-[#2A2A35] border-[#3A3A45] text-white placeholder-gray-400"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-medium text-gray-200">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="john@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="bg-[#2A2A35] border-[#3A3A45] text-white placeholder-gray-400"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-sm font-medium text-gray-200">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="bg-[#2A2A35] border-[#3A3A45] text-white placeholder-gray-400"
+              />
+            </div>
+          </form>
+        </CardContent>
+        <CardFooter>
+          <Button 
+            type="submit" 
+            className="w-full bg-green-600 hover:bg-green-700 text-white"
+            onClick={handleSubmit}
+          >
+            Sign Up
+          </Button>
+        </CardFooter>
+        <div className="text-center pb-6">
+          <p className="text-sm text-gray-400">
+            Already have an account?{' '}
+            <Link className="text-green-500 hover:text-green-400" to="/login">Log in</Link>
+          </p>
+        </div>
+      </Card>
+    </div>
   )
 }
-
-export default Signup

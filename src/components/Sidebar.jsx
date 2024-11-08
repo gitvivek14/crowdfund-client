@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { Link, useNavigate ,useLocation} from "react-router-dom";
 
 import { logo, sun } from "../assets";
 import { navlinks } from "../constants";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
 
 const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
   <div
@@ -27,12 +29,24 @@ const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState("dashboard");
+  const location = useLocation();
+  
+  const [isActive, setIsActive] = useState("home");
+
+  useEffect(() => {
+    const currentPath = location.pathname.split('/')[1]; // get the main path after '/'
+    const activeLink = navlinks.find(link => link.link.includes(currentPath));
+    if (activeLink) setIsActive(activeLink.name);
+  }, [location]);
+  
+
 
   return (
     <div className="flex justify-between items-center flex-col sticky top-5 h-[93vh]">
       <Link to="/">
-        <Icon styles="w-[52px] h-[52px] bg-[#2c2f32]" imgUrl="{logo}" />
+        <Icon styles="w-[52px] h-[52px] 
+        bg-[#2c2f32] mix-blend-screen object-contain" 
+        imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6IW2Rhw0_0gI3okYpmLf8XFayCUwRTyZ1YA&s" />
       </Link>
 
       <div className="flex-1 flex flex-col justify-between items-center bg-[#1c1c24] rounded-[20px] w-[76px] py-4 mt-12">
@@ -52,7 +66,12 @@ const Sidebar = () => {
           ))}
         </div>
 
-        <Icon styles="bg-[#1c1c24] shadow-secondary" imgUrl={sun} />
+        {/* <Icon styles="bg-[#1c1c24] shadow" imgUrl={sun} /> */}
+        <Avatar>
+    <AvatarImage src="https://github.com/shadcn.png" />
+  <AvatarFallback>CN</AvatarFallback>
+</Avatar>
+
       </div>
     </div>
   );

@@ -5,21 +5,52 @@ import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
 import { calculateBarPercentage, daysLeft } from "../utils";
 import { thirdweb } from "../assets";
-
+import { useToast } from "@/hooks/use-toast"
+import { Variable } from "lucide-react";
+import { Button } from "@/components/ui/button";
 const CampaignDetails = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { donate, getDonations, contract, address } = useStateContext();
-
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [donators, setDonators] = useState([]);
+  const { toast } = useToast()
 
+  const getIndianDateTime = () => {
+    const now = new Date();
+    return now.toLocaleString('en-IN', {
+      weekday: 'long',   // "Friday"
+      month: 'long',     // "February"
+      day: 'numeric',    // "10"
+      year: 'numeric',   // "2023"
+      hour: 'numeric',   // "5"
+      minute: '2-digit', // "57"
+      hour12: true,      // "PM"
+      timeZone: 'Asia/Kolkata' // Sets the time zone to IST
+    });
+  };
   const remainingDays = daysLeft(state.deadline);
 
   const fetchDonators = async () => {
     const data = await getDonations(state.pId);
-    setDonators(data);
+
+    const donatorMap = data.reduce((acc, item) => {
+      const donatorLowerCase = item.donator.toLowerCase(); // Convert to lowercase
+      if (!acc[donatorLowerCase]) {
+        acc[donatorLowerCase] = [];
+      }
+      acc[donatorLowerCase].push(item.donation);
+      return acc;
+    }, {});
+    
+    // Convert donatorMap to an array to use in rendering
+    const groupedDonators = Object.keys(donatorMap).map(donator => ({
+      donator,
+      donations: donatorMap[donator],
+    }));
+
+    setDonators(groupedDonators);
   };
 
   useEffect(() => {
@@ -28,13 +59,28 @@ const CampaignDetails = () => {
 
   const handleDonate = async () => {
     setIsLoading(true);
-
-    await donate(state.pId, amount);
-
-    navigate("/");
-    setIsLoading(false);
+    try {
+     const response =  await donate(state.pId, amount);
+     if(response.status==1){
+      await toast({
+        title: "बधाई🎊🎊🎉 Payment Successfull",
+        description: getIndianDateTime(),
+      })
+     }else{
+      await toast({
+        variant:"destructive",
+        title: "Payment Failed",
+        description: getIndianDateTime(),
+      })
+     }
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setIsLoading(false);
+    }
   };
-
+  const uniqueDonators = new Set(donators.map(item => item.donator.toLowerCase()));
+  const totalBackers = uniqueDonators.size;
   return (
     <div>
       {isLoading && <Loader />}
@@ -66,7 +112,7 @@ const CampaignDetails = () => {
             title={`Raised of ${state.target/10e17} ETH`}
             value={state.amountCollected}
           />
-          <CountBox title="Total Backers" value={donators.length} />
+          <CountBox title="Total Backers" value={totalBackers} />
         </div>
       </div>
 
@@ -106,32 +152,37 @@ const CampaignDetails = () => {
           </div>
 
           <div>
-            <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
-              Donators
-            </h4>
+  <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
+    Donators
+  </h4>
 
-            <div className="mt-[20px] flex flex-col gap-4">
-              {donators.length > 0 ? (
-                donators.map((item, index) => (
-                  <div
-                    key={`${item.donator}-${index}`}
-                    className="flex justify-between items-center gap-4"
-                  >
-                    <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-ll">
-                      {index + 1}. {item.donator}
-                    </p>
-                    <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll">
-                      {item.donation}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">
-                  No donators yet. Be the first one!
-                </p>
-              )}
-            </div>
-          </div>
+  <div className="mt-[20px] flex flex-col gap-4">
+    {donators.length > 0 ? (
+      donators.map((item, index) => (
+        <div
+          key={`${item.donator}-${index}`}
+          className="flex flex-col gap-2"
+        >
+          <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-all">
+            {index + 1}. {item.donator}
+          </p>
+          {item.donations.map((donation, idx) => (
+            <p
+              key={`${item.donator}-${idx}`}
+              className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll"
+            >
+              - {donation} ETH
+            </p>
+          ))}
+        </div>
+      ))
+    ) : (
+      <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">
+        No donators yet. Be the first one!
+      </p>
+    )}
+  </div>
+</div>
         </div>
 
         <div className="flex-1">
@@ -169,6 +220,19 @@ const CampaignDetails = () => {
                 styles="w-full bg-[#8c6dfd]"
                 handleClick={handleDonate}
               />
+               {/* <Button
+      variant="outline"
+      onClick={() => {
+        const ch = toast({
+          
+          title: "बधाई🎊🎊🎉",
+          description: getIndianDateTime(),
+        })
+        console.log(ch)
+      }}
+    >
+      Show Toast
+    </Button> */}
             </div>
           </div>
         </div>

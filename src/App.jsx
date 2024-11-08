@@ -3,7 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import { Sidebar, Navbar } from "./components";
 import { CampaignDetails, CreateCampaign, Home, Profile } from "./pages";
 import HeroSection from "./components/HeroSection";
-
+import Signup from "./components/Signup";
+import Login from "./components/Login"
 const Layout = ({ children }) => (
   <div className="flex">
 
@@ -32,6 +33,16 @@ const App = () => {
           <Route path="/" element={
             <HeroSection/>
             } />
+          <Route path="/login"
+          element={<Login/>}
+          >
+
+          </Route>
+          <Route path="/signup"
+          element={<Signup/>}
+          >
+
+          </Route>
           <Route path="/home" element={
             <Layout>
             <Home></Home>

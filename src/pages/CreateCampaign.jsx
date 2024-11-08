@@ -5,6 +5,9 @@ import { ethers } from "ethers";
 import { useStateContext } from "../context";
 import { CustomButton, FormField, Loader } from "../components";
 import { checkIfImage } from "../utils";
+import { useToast } from "@/hooks/use-toast"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
@@ -19,6 +22,7 @@ const CreateCampaign = () => {
     image: "",
     category : ""
   });
+  const { toast } = useToast()
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
@@ -30,12 +34,28 @@ const CreateCampaign = () => {
     checkIfImage(form.image, async (exists) => {
       if (exists) {
         setIsLoading(true);
-        await createCampaign({
-          ...form,
-          target: ethers.utils.parseUnits(form.target, 18),
-        });
-        setIsLoading(false);
-        navigate("/");
+        try {
+          const response  = await createCampaign({
+            ...form,
+            target: ethers.utils.parseUnits(form.target, 18),
+          });
+          if(response.status==1){
+            <Alert>
+        <Terminal className="h-4 w-4" />
+  <AlertTitle>Payment </AlertTitle>
+  <AlertDescription>
+    You can add components and dependencies to your app using the cli.
+  </AlertDescription>
+</Alert>
+
+          }
+        } catch (error) {
+          console.log(error)
+        }finally{
+          setIsLoading(false)
+        }
+        // setIsLoading(false);
+        navigate("/home");
       } else {
         alert("Provide valid image URL");
         setForm({ ...form, image: "" });

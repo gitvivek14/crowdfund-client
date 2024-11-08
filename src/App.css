@@ -62,3 +62,6 @@
     @apply bg-background text-foreground;
   }
 }
+.font-face-fm {
+  font-family: "FuturaBold";
+}

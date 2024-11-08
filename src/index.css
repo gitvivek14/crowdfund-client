@@ -112,5 +112,43 @@ input:hover {
 option:hover {
   background-color: #2c2c3d; /* Background color when hovering */
 }
+@font-face {
+  font-family: "FuturaBold";
+  src: local("FuturaBold"),
+  url("src/fonts/Futura/Futura-Bold.ttf") format("truetype");
+  font-weight: bold;
+ }
+ 
+ .gallery-image {
+  width: 100%;
+  max-width: 622px;
+  /* Set max width to maintain responsiveness */
+  aspect-ratio: 522 / 328;
+  /* Ensures images keep 622x428 ratio */
+  object-fit: cover;
+}
 
-  
+.mb-4 {
+  margin-bottom: 16px;
+  /* Adds vertical spacing between rows */
+}
+
+.padding {
+  padding-bottom: 16px;
+}
+
+/* CSS Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll {
+  display: flex;
+  animation: scroll 75s linear infinite;
+}
