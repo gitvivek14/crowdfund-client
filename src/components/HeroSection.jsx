@@ -4,7 +4,7 @@ import CampaignList from "./CampaignCard";
 import HNavbar from "./HeroNavbar";
 import { Button } from "./ui/button";
 import Signup from "./Signup";
-import { herosection } from "../assets/index"
+import herosection from "../assets/herosection.jpg";
 function HeroSection() {
   return (
     <div className=" absolute top-0 left-0 w-full text-gray-900">
@@ -15,7 +15,14 @@ function HeroSection() {
       </div>
       <section
         className="relative h-screen w-full  text-white z-20"
-        style={{ backgroundImage: herosection }}
+        style={{
+          backgroundImage: `url(${herosection})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundColor: 'transparent',
+        }}
+
+
       >
         {/* <img src={herosection} style={{zIndex:-100}}></img> */}
         {/* Overlay */}
