@@ -249,6 +249,35 @@ const HeroSection = ()=> {
       </section>
 
       {/* Image Gallery Section */}
+      <section className="overflow-hidden">
+        <div className="flex space-x-2 animate-scroll">
+          {/* Row 1 */}
+          <div className="flex min-w-full space-x-8 mb-4">
+            <img src="https://www.shutterstock.com/image-photo/high-five-team-food-charity-600nw-2469643817.jpg" alt="Gallery Image 1" className="gallery-image" />
+            <img src="https://www.socialtables.com/wp-content/uploads/2016/10/iStock-540095978.jpg" alt="Gallery Image 2" className="gallery-image" />
+            <img src="https://www.eventbrite.com/blog/wp-content/uploads/2021/06/image13-min-768x432.webp" alt="Gallery Image 3" className="gallery-image" />
+            <img src="https://www.nspcc.org.uk/globalassets/images/events/2024/hero-25219-exp-2024-01.jpg?width=600&mode=crop&anchor=middlecenter" alt="Gallery Image 4" className="gallery-image" />
+            <img src="https://www.letsroam.com/explorer/wp-content/uploads/sites/10/2021/09/Planning-a-Charity-Event.jpg" alt="Gallery Image 5" className="gallery-image" />
+          </div>
+
+          {/* Duplicate row for continuous scrolling */}
+        </div>
+
+        <div className="flex space-x-2 animate-scroll delay-1000">
+          {/* Row 2 */}
+          <div className="flex min-w-full space-x-8 mb-4">
+            <img src="https://www.daischina.org/-/media/dais-dalian/news-and-events/ah2a6584.jpg?h=400&w=600&rev=a20ec78d4f7a4e47846f6c5f13a6c13d&hash=024E78ED5DC353D3F8DC9E97D5E57EB9" alt="Gallery Image 6" className="gallery-image" />
+            <img src="https://runabc.co.uk/images/2020/03/charity-run2-552235.jpg" alt="Gallery Image 7" className="gallery-image" />
+            <img src="https://www.opportunityvillage.org/wp-content/uploads/2023/09/pet-rescue-fundraising-ideas-5.jpg" alt="Gallery Image 8" className="gallery-image" />
+            <img src="https://www.classy.org/wp-content/uploads/2023/03/blog-hero-fundraising-ideas-opt.png" alt="Gallery Image 9" className="gallery-image" />
+            <img src="https://nonprofithub.org/wp-content/uploads/2022/05/Tech-Fundraising-blog-2.png" alt="Gallery Image 10" className="gallery-image" />
+          </div>
+
+          {/* Duplicate row for continuous scrolling */}
+        </div>
+      </section>
+
+      {/* Image Gallery Section */}
       <section className="w-full h-full mx-auto -mt-5">
       <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
       <InfiniteMovingCards
