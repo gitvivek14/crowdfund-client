@@ -9,7 +9,7 @@ export const StateContextProvider = ({ children }) => {
 
   useEffect(() => {
    initializeEthers()
-  }, [])
+  }, [1])
 
   
 
@@ -250,23 +250,22 @@ export const StateContextProvider = ({ children }) => {
   // Set up provider, signer, and contract
   const initializeEthers = async () => {
     if (window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        setAddress(accounts[0]);
-      } catch (error) {
-        console.error("Failed to connect to wallet:", error);
-      }
-
-      const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
-      setContract(contractInstance);
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            setAddress(accounts[0]);
+            const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
+            setContract(contractInstance);
+        } catch (error) {
+            console.error("Error in initializing ethers or connecting wallet:", error);
+        }
     } else {
-      alert("Please install Metamask!")
-      console.error("Metamask not found");
+        alert("Please install Metamask!");
+        console.error("Metamask not found");
     }
-  };
+};
+
 
   const connect = initializeEthers; // To reconnect when needed
 

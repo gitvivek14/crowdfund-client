@@ -28,6 +28,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "dotenv": "^16.4.5",
+    "ethers": "^5.7.2",
     "lucide-react": "^0.454.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -36,7 +37,6 @@
     "serve": "^14.2.4",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "thirdweb": "^5.61.4",
     "uuid": "^11.0.2",
     "vite-plugin-node-polyfills": "^0.22.0",
     "zod": "^3.23.8"
