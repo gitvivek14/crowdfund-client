@@ -259,7 +259,7 @@ const HeroSection = ()=> {
     </div>
       </section>
       {/* Footer Section */}
-      {<footer className="bg-white dark:bg-gray-900">
+      <footer className="bg-white dark:bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
@@ -322,26 +322,10 @@ const HeroSection = ()=> {
               </a>
               {/* Add additional social media icons in similar fashion */}
             </div>
-     
- 
-      {/* <footer className="bg-gray-900 text-white py-8">
-        <div className="flex flex-col items-center">
-          <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
-          <div className="flex items-center max-w-md w-full">
-            <TextField
-              variant="filled"
-              placeholder="Your email"
-              className="bg-white rounded-l-md"
-              fullWidth
-              InputProps={{ disableUnderline: true }}
-            />
-            <Button variant="contained" color="primary" className="rounded-r-md">
-              ➤
-            </Button>
           </div>
         </div>
       </footer>
-      }
+      
 
 
 
