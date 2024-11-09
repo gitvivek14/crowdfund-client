@@ -55,6 +55,7 @@ const CampaignDetails = () => {
 
   useEffect(() => {
     if (contract) fetchDonators();
+    setPercentage((state.amountCollected/(state.target/10e17)*100).toFixed(2))
   }, [contract, address]);
 
   const handleDonate = async () => {
@@ -66,6 +67,9 @@ const CampaignDetails = () => {
         title: "बधाई🎊🎊🎉 Payment Successfull",
         description: getIndianDateTime(),
       })
+
+    setPercentage((state.amountCollected/(state.target/10e17)*100).toFixed(2))
+    
      }else{
       await toast({
         variant:"destructive",
@@ -79,6 +83,7 @@ const CampaignDetails = () => {
       setIsLoading(false);
     }
   };
+  const [percentage, setPercentage] = useState()
   const uniqueDonators = new Set(donators.map(item => item.donator.toLowerCase()));
   const totalBackers = uniqueDonators.size;
   return (
@@ -91,15 +96,12 @@ const CampaignDetails = () => {
             src={state.image}
             alt="campaign"
             className="w-full h-[410px] object-cover rounded-xl"
-          />
+            />
           <div className="relative w-full h-[5px] bg-[#3a3a43] mt-2">
             <div
               className="absolute h-full bg-[#4acd8d]"
               style={{
-                width: `${calculateBarPercentage(
-                  state.target,
-                  state.amountCollected
-                )}%`,
+                width: `${percentage}%`,
                 maxWidth: "100%",
               }}
             ></div>
@@ -109,10 +111,11 @@ const CampaignDetails = () => {
         <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
           <CountBox title="Days Left" value={remainingDays} />
           <CountBox
-            title={`Raised of ${state.target/10e17} ETH`}
-            value={state.amountCollected}
+            title={`Fund Raised`}
+            value={percentage + "%"}
           />
           <CountBox title="Total Backers" value={totalBackers} />
+          {/* <CountBox title="Funds Raised" value={100%} /> */}
         </div>
       </div>
 
