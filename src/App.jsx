@@ -7,10 +7,6 @@ import Signup from "./components/Signup";
 import Login from "./components/Login"
 const Layout = ({ children }) => (
   <div className="flex">
-
-<div className="sm:flex hidden mr-10 relative mx-auto">
-    <Sidebar />
-  </div>
     <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
       <Navbar />
       {children}
@@ -23,12 +19,11 @@ const Layout = ({ children }) => (
 const App = () => {
   return (
     <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen mx-auto flex flex-row">
-    <div className="sm:flex hidden mr-10 relative mx-auto">
-      {/* <Sidebar /> */}
+    <div className="sm:flex hidden mr-10 relative ml-10">
+      <Sidebar />
     </div>
 
     <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
-        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={
             <HeroSection/>
