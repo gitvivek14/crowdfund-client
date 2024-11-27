@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
-import { calculateBarPercentage, daysLeft } from "../utils";
+import {  daysLeft } from "../utils";
 import { thirdweb } from "../assets";
 import { useToast } from "@/hooks/use-toast"
-import { Variable } from "lucide-react";
-import { Button } from "@/components/ui/button";
 const CampaignDetails = () => {
   const { state } = useLocation();
-  const navigate = useNavigate();
   const { donate, getDonations, contract, address } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
