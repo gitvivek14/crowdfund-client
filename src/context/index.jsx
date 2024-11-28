@@ -247,7 +247,7 @@ export const StateContextProvider = ({ children }) => {
     return "Visit metamask.io"
   }
   const getFailMessage = () => {
-    return "Please have have funds more than the amount you're trying to send to account for GAS Fees"
+    return "Error in making the transaction, do you have enough balance in your wallet ?"
   }
   // Set up provider, signer, and contract
   const initializeEthers = async () => {

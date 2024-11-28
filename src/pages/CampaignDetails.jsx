@@ -57,7 +57,6 @@ const CampaignDetails = () => {
     const userDono = groupedDonators.find(
       (donator) => donator.donator === targetAddress
     );
-    console.log(userDono);
     setuserDonation(userDono);
   };
 
@@ -98,7 +97,6 @@ const CampaignDetails = () => {
     donators.map((item) => item.donator.toLowerCase())
   );
   const totalBackers = uniqueDonators.size;
-  console.log(userDonation);
   return (
     <div>
       {isLoading && <Loader />}
@@ -237,7 +235,18 @@ const CampaignDetails = () => {
                 step="0.01"
                 className="w-full py-[10px] sm:px-[20px] px-[15px] outline-none border-[1px] border-[#3a3a43] bg-transparent font-epilogue text-white text-[18px] leading-[30px] placeholder:text-[#4b5264] rounded-[10px]"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value <= 0) {
+                    setAmount(0);
+                    toast({
+                      title : "Enter a value greater than 0"
+                    })
+                  } else {
+                    setAmount(e.target.value);
+                    
+                  }
+                }}
+                min={0.00000001}
               />
 
               <div className="my-[20px] p-4 bg-[#13131a] rounded-[10px]">
