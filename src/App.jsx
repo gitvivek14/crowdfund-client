@@ -5,23 +5,26 @@ import { CampaignDetails, CreateCampaign, Home, Profile } from "./pages";
 import HeroSection from "./components/HeroSection";
 import Signup from "./components/Signup";
 import Login from "./components/Login"
+import Clerk from "./pages/Clerk";
+
 const Layout = ({ children }) => (
   <div className="flex">
+    <div className="sm:flex hidden mr-10 mx-auto relative">
+     <Sidebar />
+     </div>
     <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
       <Navbar />
       {children}
     </div>
   </div>
- 
- 
 );
 
 const App = () => {
   return (
     <div className="relative sm:-8 p-4 bg-[#13131a] min-h-screen mx-auto flex flex-row">
-    <div className="sm:flex hidden mr-10 relative ml-10">
-      <Sidebar />
-    </div>
+    {/* <div className="sm:flex hidden mr-10 relative ml-10">
+     
+    </div> */}
 
     <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto sm:pr-5">
         <Routes>
@@ -34,7 +37,7 @@ const App = () => {
 
           </Route>
           <Route path="/signup"
-          element={<Signup/>}
+          element={<Clerk/>}
           >
 
           </Route>
