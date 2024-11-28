@@ -7,7 +7,7 @@ const Charity = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [campaigns, setCampaigns] = useState([]);
 
-  const { address, contract, getCampaigns } = useStateContext();
+  const { address, contract, getCampaigns, connect } = useStateContext();
 
   const fetchCampaigns = async () => {
     setIsLoading(true);
@@ -16,7 +16,9 @@ const Charity = () => {
     setCampaigns(dataagain);
     setIsLoading(false);
   };
-
+  useEffect(() => {
+    connect()
+  }, [])
   useEffect(() => {
     if (contract) fetchCampaigns();
   }, [address, contract]);

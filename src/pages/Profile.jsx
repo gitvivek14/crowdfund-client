@@ -7,7 +7,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [campaigns, setCampaigns] = useState([]);
 
-  const { address, contract, getUserCampaigns } = useStateContext();
+  const { address, contract, getUserCampaigns, connect } = useStateContext();
 
   const fetchCampaigns = async () => {
     setIsLoading(true);
@@ -15,7 +15,9 @@ const Profile = () => {
     setCampaigns(data);
     setIsLoading(false);
   };
-
+  useEffect(() => {
+    connect()
+  }, [])
   useEffect(() => {
     if (contract) fetchCampaigns();
   }, [address, contract]);

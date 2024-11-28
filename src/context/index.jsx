@@ -246,6 +246,9 @@ export const StateContextProvider = ({ children }) => {
   const getMessage = () => {
     return "Visit metamask.io"
   }
+  const getFailMessage = () => {
+    return "Please have have funds more than the amount you're trying to send to account for GAS Fees"
+  }
   // Set up provider, signer, and contract
   const initializeEthers = async () => {
     if (window.ethereum) {
@@ -325,6 +328,11 @@ export const StateContextProvider = ({ children }) => {
       const receipt = await tx.wait();
       return receipt;
     } catch (error) {
+      console.log("are we her")
+      toast({
+        title : "Insufficient Funds!",
+        description : getFailMessage()
+      })
       console.error("Donation failed", error);
     }
   };

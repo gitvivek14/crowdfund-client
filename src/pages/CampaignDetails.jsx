@@ -8,7 +8,7 @@ import { thirdweb } from "../assets";
 import { useToast } from "@/hooks/use-toast"
 const CampaignDetails = () => {
   const { state } = useLocation();
-  const { donate, getDonations, contract, address } = useStateContext();
+  const { donate, getDonations, contract, address, connect } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [donators, setDonators] = useState([]);
@@ -27,6 +27,9 @@ const CampaignDetails = () => {
       timeZone: 'Asia/Kolkata' // Sets the time zone to IST
     });
   };
+  useEffect(() => {
+    connect()
+  }, [])
   const remainingDays = daysLeft(state.deadline);
 
   const fetchDonators = async () => {

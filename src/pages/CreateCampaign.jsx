@@ -12,7 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { createCampaign } = useStateContext();
+  const { createCampaign, connect } = useStateContext();
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -22,6 +22,9 @@ const CreateCampaign = () => {
     image: "",
     category : ""
   });
+  useEffect(() => {
+    connect()
+  }, [])
   const { toast } = useToast()
 
   const handleFormFieldChange = (fieldName, e) => {
