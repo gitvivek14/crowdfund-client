@@ -123,7 +123,7 @@ const CreateCampaign = () => {
             labelName="Category *"
             placeholder="Select the category of your campaign"
             isSelect={true}
-            options={["Charity", "Fund"]}
+            options={["Charity", "Project"]}
             value={form.category}
             handleChange={(e) => handleFormFieldChange("category", e)}
           />

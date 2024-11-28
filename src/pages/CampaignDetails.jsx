@@ -41,7 +41,6 @@ const CampaignDetails = () => {
       return acc;
     }, {});
     
-    // Convert donatorMap to an array to use in rendering
     const groupedDonators = Object.keys(donatorMap).map(donator => ({
       donator,
       donations: donatorMap[donator],
@@ -53,7 +52,7 @@ const CampaignDetails = () => {
   useEffect(() => {
     if (contract) fetchDonators();
     setPercentage((state.amountCollected/(state.target/10e17)*100).toFixed(2))
-  }, [contract, address]);
+  }, [contract, address, isLoading]);
 
   const handleDonate = async () => {
     setIsLoading(true);

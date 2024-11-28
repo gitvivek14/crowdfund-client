@@ -15,7 +15,7 @@ const FundCard = ({
   category,
 }) => {
   const remainingDays = daysLeft(deadline);
-
+  const width = (amountCollected * 100) / (target / 10e17)  > 100 ? 100 : (amountCollected * 100) / (target / 10e17);
   return (
     <div
       className="sm:w-[288px] w-full rounded-[15px] bg-[#1c1c24] cursor-pointer"
@@ -28,11 +28,11 @@ const FundCard = ({
       />
 
       {/* Progress Bar */}
-      <div className="w-full bg-[#3a3a43] h-2 rounded-[10px] mt-2">
+      <div className="w-[98%] bg-[#3a3a43] h-2 rounded-[10px] mt-2 mx-auto ">
         <div
           className="h-2 rounded-[10px] bg-[#4caf50]"
           style={{
-            width: `${(amountCollected * 100) / (target / 10e17)}%`,
+            width: `${width}%`,
           }}
         ></div>
       </div>

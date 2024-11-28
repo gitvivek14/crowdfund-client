@@ -16,7 +16,7 @@ const CampaignCard = ({ image, donations, title, amountRaised, target, category 
           <div className="w-full bg-gray-200 rounded-full h-2.5">
             <div
               className="bg-green-500 h-2.5 rounded-full"
-              style={{ width: `${amountRaised*100/target}%` }}
+              style={{ width: `${amountRaised*100/target > 100 ? 100 : amountRaised*100/target}%` }}
             ></div>
           </div>
         </div>
