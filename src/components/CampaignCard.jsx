@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useStateContext } from "@/context";
-
+import { getDataForStart } from "@/constants/dataForStart";
 const CampaignCard = ({ image, donations, title, amountRaised, target, category }) => {
   return (
     <div className="w-full sm:w-[48%] md:w-[30%] bg-white rounded-lg overflow-hidden shadow-[0px_10px_1px_rgba(221,_221,_221,_1),_0_10px_20px_rgba(204,_204,_204,_1)]">
@@ -27,8 +26,7 @@ const CampaignCard = ({ image, donations, title, amountRaised, target, category 
 };
 
 
-const CampaignList = () => {
-  const { getDataForStart } = useStateContext(); // Assume this is fetching data from a context
+const CampaignList = () => {; // Assume this is fetching data from a context
   const [campaigns, setCampaigns] = useState([  // Default campaigns state
     {
       image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",

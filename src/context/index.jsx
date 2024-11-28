@@ -244,35 +244,6 @@ export const StateContextProvider = ({ children }) => {
         "type": "function"
       }
     ]
-
-
-  const getDataForStart = async () => {
-    const provider = new ethers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/1oWEpXR6VSY0OgghPAtSEVgwNavPSu6H");
-    const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
-    const data = await contract.getCampaigns()
-    const length = data.length
-    let donations = []
-    for(let i = 0 ; i < length; i++){
-      const resp = await contract.getDonators(i)
-      donations.push(resp)
-    }
-    const formattedCampaigns = data.map((campaign, i) => ({
-      owner: campaign[0],
-      title: campaign[1],
-      description: campaign[2],
-      category: campaign[3],
-      target: ethers.formatEther(campaign[4])/10e17, // Convert from wei to ETH
-      deadline: new Date(Number(campaign[5])*1000 ),
-      amountRaised: ethers.formatEther(campaign[6])/1,
-      image: campaign[7],
-      pId : i,
-      donations: donations[i]
-    }));
-
-    return formattedCampaigns
-  }
-
   // Set up provider, signer, and contract
   const initializeEthers = async () => {
     if (window.ethereum) {
@@ -377,7 +348,6 @@ export const StateContextProvider = ({ children }) => {
         getUserCampaigns,
         donate,
         getDonations,
-        getDataForStart
       }}
     >
       {children}
