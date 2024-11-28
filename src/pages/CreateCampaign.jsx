@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
 import { useStateContext } from "../context";
 import { CustomButton, FormField, Loader } from "../components";
 import { checkIfImage } from "../utils";
-import { useToast } from "@/hooks/use-toast"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-
+import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
@@ -20,12 +19,12 @@ const CreateCampaign = () => {
     target: "",
     deadline: "",
     image: "",
-    category : ""
+    category: "",
   });
   useEffect(() => {
-    connect()
-  }, [])
-  const { toast } = useToast()
+    connect();
+  }, []);
+  const { toast } = useToast();
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
@@ -38,24 +37,23 @@ const CreateCampaign = () => {
       if (exists) {
         setIsLoading(true);
         try {
-          const response  = await createCampaign({
+          const response = await createCampaign({
             ...form,
-            target: ethers.utils.parseUnits(form.target, 18),
+            target: ethers.parseUnits(form.target, 18),
           });
-          if(response.status==1){
+          if (response.status == 1) {
             <Alert>
-        <Terminal className="h-4 w-4" />
-  <AlertTitle>Payment </AlertTitle>
-  <AlertDescription>
-    You can add components and dependencies to your app using the cli.
-  </AlertDescription>
-</Alert>
-
+              <AlertTitle>Payment </AlertTitle>
+              <AlertDescription>
+                You can add components and dependencies to your app using the
+                cli.
+              </AlertDescription>
+            </Alert>;
           }
         } catch (error) {
-          console.log(error)
-        }finally{
-          setIsLoading(false)
+          console.log(error);
+        } finally {
+          setIsLoading(false);
         }
         // setIsLoading(false);
         navigate("/home");
