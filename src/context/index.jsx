@@ -1,9 +1,11 @@
 import { useContext, createContext, useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useToast } from '@/hooks/use-toast';
 
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
+  const { toast } = useToast()
   const [address, setAddress] = useState(null);
   const [contract, setContract] = useState(null);
 
@@ -254,7 +256,9 @@ export const StateContextProvider = ({ children }) => {
         console.error("Error initializing ethers or connecting wallet:", error);
       }
     } else {
-      alert("Please install Metamask!");
+      await toast({
+        title : "Please install Metamask"
+      })
       console.error("Metamask not found");
     }
   };
