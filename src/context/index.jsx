@@ -242,6 +242,10 @@ export const StateContextProvider = ({ children }) => {
         "type": "function"
       }
     ]
+
+  const getMessage = () => {
+    return "Visit metamask.io"
+  }
   // Set up provider, signer, and contract
   const initializeEthers = async () => {
     if (window.ethereum) {
@@ -257,7 +261,8 @@ export const StateContextProvider = ({ children }) => {
       }
     } else {
       await toast({
-        title : "Please install Metamask"
+        title : "Please install Metamask",
+        description : getMessage()
       })
       console.error("Metamask not found");
     }
