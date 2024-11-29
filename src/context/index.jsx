@@ -1,17 +1,13 @@
-import  { useContext, createContext, useEffect, useState } from 'react';
+import { useContext, createContext, useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useToast } from '@/hooks/use-toast';
 
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
+  const { toast } = useToast()
   const [address, setAddress] = useState(null);
   const [contract, setContract] = useState(null);
-
-  useEffect(() => {
-   initializeEthers()
-  }, [1])
-
-  
 
   const contractAddress = "0x70E08d0940BE1af49D7514ECF9e32526C5699128";
   const contractABI =
@@ -247,35 +243,53 @@ export const StateContextProvider = ({ children }) => {
       }
     ]
 
+  const getMessage = () => {
+    return "Visit metamask.io"
+  }
+  const getFailMessage = () => {
+    return "Error in making the transaction, do you have enough balance in your wallet ?"
+  }
   // Set up provider, signer, and contract
+ 
   const initializeEthers = async () => {
     if (window.ethereum) {
-        try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            setAddress(accounts[0]);
-            const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
-            setContract(contractInstance);
-        } catch (error) {
-            console.error("Error in initializing ethers or connecting wallet:", error);
-        }
+      try {
+        // Create a provider using `ethers.providers.Web3Provider`
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
+        // Get the signer (the connected account)
+        const signer = provider.getSigner();
+  
+        // Request accounts from MetaMask
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+  
+        // Set the address and initialize the contract instance
+        setAddress(accounts[0]);
+        const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
+        setContract(contractInstance);
+      } catch (error) {
+        console.error("Error initializing ethers or connecting wallet:", error);
+      }
     } else {
-        alert("Please install Metamask!");
-        console.error("Metamask not found");
+      await toast({
+        title: "Please install MetaMask",
+        description: getMessage(),
+      });
+      console.error("MetaMask not found");
     }
-};
+  };
+  
 
-
-  const connect = initializeEthers; // To reconnect when needed
 
   const publishCampaign = async (form) => {
     try {
       const tx = await contract.createCampaign(
-        address, 
-        form.title, 
-        form.description, 
-        ethers.utils.parseEther(form.target.toString()), // Convert target to string if necessary
+        address,
+        form.title,
+        form.description,
+        ethers.utils.parseEther(form.target.toString()), // Updated ethers method
         new Date(form.deadline).getTime(),
         form.image,
         form.category
@@ -285,75 +299,51 @@ export const StateContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Contract call failure", error);
     }
-};
-
+  };
 
   const getCampaigns = async () => {
-    const dummyCampaigns = [
-      // {
-      //   owner: "0x0000000000000000000000000000000000000000",
-      //   title: "Sample Campaign 1",
-      //   description: "This is a sample campaign for testing.",
-      //   target: ethers.utils.formatEther("10"), // 10 ETH target
-      //   deadline: Date.now() + 7 * 24 * 60 * 60 * 1000, // One week from now
-      //   amountCollected: ethers.utils.formatEther("2"), // 2 ETH collected
-      //   image: "https://via.placeholder.com/150",
-      //   pId: 0,
-      // },
-      // {
-      //   owner: "0x0000000000000000000000000000000000000000",
-      //   title: "Sample Campaign 2",
-      //   description: "Another sample campaign.",
-      //   target: ethers.utils.formatEther("5"), // 5 ETH target
-      //   deadline: Date.now() + 14 * 24 * 60 * 60 * 1000, // Two weeks from now
-      //   amountCollected: ethers.utils.formatEther("1"), // 1 ETH collected
-      //   image: "https://via.placeholder.com/150",
-      //   pId: 1,
-      // },
-    ];
-  
+    const dummyCampaigns = [];
     try {
       const campaigns = await contract.getCampaigns();
-      console.log(campaigns)
       const parsedCampaigns = campaigns.map((campaign, i) => ({
         owner: campaign.owner,
         title: campaign.title,
         description: campaign.description,
-        target: ethers.utils.formatEther(campaign.target.toString()),
-        deadline: campaign.deadline.toNumber(),
-        amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
+        target: ethers.utils.formatEther(campaign.target),
+        deadline: Number(campaign.deadline),
+        amountCollected: ethers.utils.formatEther(campaign.amountCollected),
         image: campaign.image,
-        pId: i + dummyCampaigns.length,
-        category : campaign.category // Offset IDs for dummy campaigns
+        pId: i + (dummyCampaigns.length || 0),
+        category: campaign.category,
       }));
-  
-      // Combine dummy campaigns with real campaigns
       return [...dummyCampaigns, ...parsedCampaigns];
     } catch (error) {
       console.error("Failed to get campaigns", error);
-      // Return only dummy campaigns if there's an error
       return dummyCampaigns;
     }
   };
-  
 
   const getUserCampaigns = async () => {
     const allCampaigns = await getCampaigns();
-    let userCampaigns = [];
-    allCampaigns.map(campaign => {
-      if(campaign.owner.toLowerCase() == address.toLowerCase()) {
-        userCampaigns.push(campaign)
-      }
-    })
-    return userCampaigns
+    return allCampaigns.filter(
+      (campaign) => campaign.owner.toLowerCase() === address.toLowerCase()
+    );
   };
 
   const donate = async (pId, amount) => {
+    console.log("donated amounts",amount)
     try {
-      const tx = await contract.donateToCampaign(pId, {value: ethers.utils.parseEther(amount) });
+      const tx = await contract.donateToCampaign(pId, {
+        value: ethers.utils.parseEther(amount),
+      });
       const receipt = await tx.wait();
       return receipt;
     } catch (error) {
+      console.log("are we her")
+      toast({
+        title : "Insufficient Funds!",
+        description : getFailMessage()
+      })
       console.error("Donation failed", error);
     }
   };
@@ -361,17 +351,10 @@ export const StateContextProvider = ({ children }) => {
   const getDonations = async (pId) => {
     try {
       const donations = await contract.getDonators(pId);
-      const numberOfDonations = donations[0].length;
-
-      const parsedDonations = [];
-      for (let i = 0; i < numberOfDonations; i++) { 
-        parsedDonations.push({
-          donator: donations[0][i],
-          donation: ethers.utils.formatEther(donations[1][i].toString())
-        });
-      }
-
-      return parsedDonations;
+      return donations[0].map((donator, i) => ({
+        donator,
+        donation: ethers.utils.formatEther(donations[1][i]),
+      }));
     } catch (error) {
       console.error("Failed to get donations", error);
       return [];
@@ -380,15 +363,15 @@ export const StateContextProvider = ({ children }) => {
 
   return (
     <StateContext.Provider
-      value={{ 
+      value={{
         address,
         contract,
-        connect,
+        connect:initializeEthers,
         createCampaign: publishCampaign,
         getCampaigns,
         getUserCampaigns,
         donate,
-        getDonations
+        getDonations,
       }}
     >
       {children}

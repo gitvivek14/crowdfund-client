@@ -6,12 +6,15 @@ import { CustomButton } from "./";
 import { logo, menu, search } from "../assets";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navlinks } from "../constants";
+import { useUser } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState("dashboard");
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const { connect, address } = useStateContext();
+  const {user} = useUser()
+  console.log("address",address)
 
   return (
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
@@ -38,8 +41,8 @@ const Navbar = () => {
           title={address ? "Create a campaign" : "Connect"}
           styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
           handleClick={() => {
-            if (address) navigate("/create-campaign");
-            else connect();
+            if(address) navigate("/create-campaign")
+            else connect()
           }}
         />
 
@@ -51,7 +54,7 @@ const Navbar = () => {
               className="w-[60%] h-[60%] object-contain"
             /> */}
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={user?.imageUrl} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
@@ -62,8 +65,8 @@ const Navbar = () => {
       <div className="sm:hidden flex justify-between items-center relative">
         <div className="w-[40px] h-[40px] rounded-[10px] bg-[#2c2f32] flex justify-center items-center cursor-pointer">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6IW2Rhw0_0gI3okYpmLf8XFayCUwRTyZ1YA&s"
-            alt="user"
+            src={user?.imageUrl}
+            alt={user?.firstName?.[0] + user?.lastName?.[0]}
             className="w-[60%] h-[60%] object-contain"
           />
         </div>
@@ -101,7 +104,7 @@ const Navbar = () => {
                   }`}
                 /> */}
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={user?.imageUrl} />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <p

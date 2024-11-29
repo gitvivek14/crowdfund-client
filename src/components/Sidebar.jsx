@@ -4,6 +4,7 @@ import { Link, useNavigate ,useLocation} from "react-router-dom";
 import { logo, sun } from "../assets";
 import { navlinks } from "../constants";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { UserButton, useUser } from "@clerk/clerk-react";
 
 
 const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
@@ -30,6 +31,7 @@ const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const {user} = useUser()
   
   const [isActive, setIsActive] = useState("home");
 
@@ -67,10 +69,23 @@ const Sidebar = () => {
         </div>
 
         {/* <Icon styles="bg-[#1c1c24] shadow" imgUrl={sun} /> */}
-        <Avatar>
-    <AvatarImage src="https://github.com/shadcn.png" />
+        {/* <Avatar>
+    <AvatarImage src={user?.imageUrl} />
   <AvatarFallback>CN</AvatarFallback>
-</Avatar>
+</Avatar> */}
+<UserButton
+userProfileMode="modal"
+signInUrl="/sign-in"
+appearance={{
+  elements: {
+    userButtonAvatarBox: "w-14 h-14", // Increase the size here (from 10 to 14)
+    userButtonPopoverCard: "bg-[#1A1A23] text-black border-[#2A2A35]", // Dropdown styles
+    userButtonPopoverCardItem: "hover:bg-[#2A2A35]", // Dropdown item hover effect
+  },
+}}
+>
+
+</UserButton>
 
       </div>
     </div>

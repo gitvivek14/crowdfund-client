@@ -1,90 +1,119 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
-import { calculateBarPercentage, daysLeft } from "../utils";
+import { daysLeft } from "../utils";
 import { thirdweb } from "../assets";
-import { useToast } from "@/hooks/use-toast"
-import { Variable } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 const CampaignDetails = () => {
   const { state } = useLocation();
-  const navigate = useNavigate();
-  const { donate, getDonations, contract, address } = useStateContext();
+  const { donate, getDonations, contract, address, connect } =
+    useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [donators, setDonators] = useState([]);
-  const { toast } = useToast()
-
+  const { toast } = useToast();
+  const [userDonation, setuserDonation] = useState();
+  const [Fetchdata, setFetchdata] = useState(false)
   const getIndianDateTime = () => {
     const now = new Date();
-    return now.toLocaleString('en-IN', {
-      weekday: 'long',   // "Friday"
-      month: 'long',     // "February"
-      day: 'numeric',    // "10"
-      year: 'numeric',   // "2023"
-      hour: 'numeric',   // "5"
-      minute: '2-digit', // "57"
-      hour12: true,      // "PM"
-      timeZone: 'Asia/Kolkata' // Sets the time zone to IST
+    return now.toLocaleString("en-IN", {
+      weekday: "long", // "Friday"
+      month: "long", // "February"
+      day: "numeric", // "10"
+      year: "numeric", // "2023"
+      hour: "numeric", // "5"
+      minute: "2-digit", // "57"
+      hour12: true, // "PM"
+      timeZone: "Asia/Kolkata", // Sets the time zone to IST
     });
   };
+  useEffect(() => {
+    connect();
+  }, []);
   const remainingDays = daysLeft(state.deadline);
 
   const fetchDonators = async () => {
-    const data = await getDonations(state.pId);
+    setFetchdata(true)
+    try {
+      const data = await getDonations(state.pId);
 
-    const donatorMap = data.reduce((acc, item) => {
-      const donatorLowerCase = item.donator.toLowerCase(); // Convert to lowercase
-      if (!acc[donatorLowerCase]) {
-        acc[donatorLowerCase] = [];
-      }
-      acc[donatorLowerCase].push(item.donation);
-      return acc;
-    }, {});
-    
-    // Convert donatorMap to an array to use in rendering
-    const groupedDonators = Object.keys(donatorMap).map(donator => ({
-      donator,
-      donations: donatorMap[donator],
-    }));
-
-    setDonators(groupedDonators);
+      const donatorMap = data.reduce((acc, item) => {
+        const donatorLowerCase = item.donator.toLowerCase(); // Convert to lowercase
+        if (!acc[donatorLowerCase]) {
+          acc[donatorLowerCase] = [];
+        }
+        acc[donatorLowerCase].push(item.donation);
+        return acc;
+      }, {});
+  
+      const groupedDonators = Object.keys(donatorMap).map((donator) => ({
+        donator,
+        donations: donatorMap[donator],
+      }));
+      setDonators(groupedDonators);
+  
+      const targetAddress = address.toLowerCase();
+  
+      // Find donations for the specific user
+      const userDono = groupedDonators.find(
+        (donator) => donator.donator === targetAddress
+      );
+      setuserDonation(userDono);
+      
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setFetchdata(false)
+    }
+   
   };
 
   useEffect(() => {
     if (contract) fetchDonators();
-    setPercentage((state.amountCollected/(state.target/10e17)*100).toFixed(2))
-  }, [contract, address]);
-
+    setPercentage(
+      ((state.amountCollected / (state.target / 10e17)) * 100).toFixed(2)
+    );
+  }, [contract, address, isLoading,Fetchdata]);
   const handleDonate = async () => {
     setIsLoading(true);
+    if (amount <= 0) {
+      toast({
+        title: "Invalid Amount",
+        description: "Please enter a valid amount",
+      });
+      setIsLoading(false);
+      return;
+    }
     try {
-     const response =  await donate(state.pId, amount);
-     if(response.status==1){
-      await toast({
-        title: "बधाई🎊🎊🎉 Payment Successfull",
-        description: getIndianDateTime(),
-      })
+      const response = await donate(state.pId, amount);
+      if (response?.status == 1) {
+        toast({
+          title: "बधाई🎊🎊🎉 Payment Successfull",
+          description: getIndianDateTime(),
+        });
 
-    setPercentage((state.amountCollected/(state.target/10e17)*100).toFixed(2))
-    
-     }else{
-      await toast({
-        variant:"destructive",
-        title: "Payment Failed",
-        description: getIndianDateTime(),
-      })
-     }
+        setPercentage(
+          ((state.amountCollected / (state.target / 10e17)) * 100).toFixed(2)
+        );
+      } else {
+        await toast({
+          variant: "destructive",
+          title: "Payment Failed",
+          description: getIndianDateTime(),
+        });
+      }
     } catch (error) {
-      console.log(error)
-    }finally{
+      console.log(error);
+    } finally {
       setIsLoading(false);
     }
   };
-  const [percentage, setPercentage] = useState()
-  const uniqueDonators = new Set(donators.map(item => item.donator.toLowerCase()));
+  const [percentage, setPercentage] = useState();
+  const uniqueDonators = new Set(
+    donators.map((item) => item.donator.toLowerCase())
+  );
   const totalBackers = uniqueDonators.size;
   return (
     <div>
@@ -96,7 +125,7 @@ const CampaignDetails = () => {
             src={state.image}
             alt="campaign"
             className="w-full h-[410px] object-cover rounded-xl"
-            />
+          />
           <div className="relative w-full h-[5px] bg-[#3a3a43] mt-2">
             <div
               className="absolute h-full bg-[#4acd8d]"
@@ -110,10 +139,7 @@ const CampaignDetails = () => {
 
         <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
           <CountBox title="Days Left" value={remainingDays} />
-          <CountBox
-            title={`Fund Raised`}
-            value={percentage + "%"}
-          />
+          <CountBox title={`Fund Raised`} value={percentage + "%"} />
           <CountBox title="Total Backers" value={totalBackers} />
           {/* <CountBox title="Funds Raised" value={100%} /> */}
         </div>
@@ -153,39 +179,62 @@ const CampaignDetails = () => {
               </p>
             </div>
           </div>
-
           <div>
-  <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
-    Donators
-  </h4>
+            <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
+              Your Donations to This Campaign!
+            </h4>
 
-  <div className="mt-[20px] flex flex-col gap-4">
-    {donators.length > 0 ? (
-      donators.map((item, index) => (
-        <div
-          key={`${item.donator}-${index}`}
-          className="flex flex-col gap-2"
-        >
-          <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-all">
-            {index + 1}. {item.donator}
-          </p>
-          {item.donations.map((donation, idx) => (
-            <p
-              key={`${item.donator}-${idx}`}
-              className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll"
-            >
-              - {donation} ETH
-            </p>
-          ))}
-        </div>
-      ))
-    ) : (
-      <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">
-        No donators yet. Be the first one!
-      </p>
-    )}
-  </div>
-</div>
+            <div className="mt-[20px] flex flex-col gap-4">
+              {userDonation ? (
+                <div className="flex flex-col gap-2">
+                  {userDonation.donations.map((donation, idx) => (
+                    <p
+                      key={`user-dono-${idx}`}
+                      className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll"
+                    >
+                      - {donation} ETH
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">
+                  No donations from this user yet.
+                </p>
+              )}
+            </div>
+          </div>
+          <div>
+            <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
+              Donators
+            </h4>
+
+            <div className="mt-[20px] flex flex-col gap-4">
+              {donators.length > 0 ? (
+                donators.map((item, index) => (
+                  <div
+                    key={`${item.donator}-${index}`}
+                    className="flex flex-col gap-2"
+                  >
+                    <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-all">
+                      {index + 1}. {item.donator}
+                    </p>
+                    {item.donations.map((donation, idx) => (
+                      <p
+                        key={`${item.donator}-${idx}`}
+                        className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll"
+                      >
+                        - {donation} ETH
+                      </p>
+                    ))}
+                  </div>
+                ))
+              ) : (
+                <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">
+                  No donators yet. Be the first one!
+                </p>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="flex-1">
@@ -204,7 +253,10 @@ const CampaignDetails = () => {
                 step="0.01"
                 className="w-full py-[10px] sm:px-[20px] px-[15px] outline-none border-[1px] border-[#3a3a43] bg-transparent font-epilogue text-white text-[18px] leading-[30px] placeholder:text-[#4b5264] rounded-[10px]"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => {
+                setAmount(e.target.value)
+                }}
+                
               />
 
               <div className="my-[20px] p-4 bg-[#13131a] rounded-[10px]">
@@ -223,7 +275,7 @@ const CampaignDetails = () => {
                 styles="w-full bg-[#8c6dfd]"
                 handleClick={handleDonate}
               />
-               {/* <Button
+              {/* <Button
       variant="outline"
       onClick={() => {
         const ch = toast({
