@@ -28,50 +28,50 @@ const CampaignCard = ({ image, donations, title, amountRaised, target, category 
 
 const CampaignList = () => {; // Assume this is fetching data from a context
   const [campaigns, setCampaigns] = useState([]);
-  const sampleData = [  // Default campaigns state
-    {
-      image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
-      donations: "100",
-      title: "Help an NGO",
-      amountRaised: 0.25,
-      target: 1.25,
-    },
-    {
-      image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
-      donations: "100",
-      title: "Help an NGO",
-      amountRaised: 0.35,
-      target: 0.5,
-    },
-    {
-      image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
-      donations: "100",
-      title: "Help an NGO",
-      amountRaised: 0.4,
-      target: 1,
-    },
-    {
-      image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
-      donations: "100",
-      title: "Help an NGO",
-      amountRaised: 5,
-      target: 10,
-    },
-    {
-      image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
-      donations: "100",
-      title: "Help an NGO",
-      amountRaised: 13,
-      target: 20,
-    },
-  ]
+  // const sampleData = [  // Default campaigns state
+  //   {
+  //     image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
+  //     donations: "100",
+  //     title: "Help an NGO",
+  //     amountRaised: 0.25,
+  //     target: 1.25,
+  //   },
+  //   {
+  //     image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
+  //     donations: "100",
+  //     title: "Help an NGO",
+  //     amountRaised: 0.35,
+  //     target: 0.5,
+  //   },
+  //   {
+  //     image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
+  //     donations: "100",
+  //     title: "Help an NGO",
+  //     amountRaised: 0.4,
+  //     target: 1,
+  //   },
+  //   {
+  //     image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
+  //     donations: "100",
+  //     title: "Help an NGO",
+  //     amountRaised: 5,
+  //     target: 10,
+  //   },
+  //   {
+  //     image: "https://static.wixstatic.com/media/ac3d3c_7596c9e6c40949d98032498fc149ef53~mv2.jpg/v1/fill/w_639,h_382,al_c,q_80/SBP%2520FORMAT%2520-%2520HELP_edited.jpg",
+  //     donations: "100",
+  //     title: "Help an NGO",
+  //     amountRaised: 13,
+  //     target: 20,
+  //   },
+  // ]
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
         const data = await getDataForStart(); 
-        setCampaigns([...sampleData, ...data]);
+        setCampaigns(data);
       } catch (error) {
         console.error("Error fetching campaigns:", error);
       } finally {
@@ -80,15 +80,13 @@ const CampaignList = () => {; // Assume this is fetching data from a context
     };
     
     fetchCampaigns();
-  }, [getDataForStart]); // Run effect when `getDataForStart` changes
+  }, []); // Run effect when `getDataForStart` changes
   
-  if (loading) {
-    return <div>Loading...</div>; // Show a loading indicator
-  }
+ 
 
-  if (campaigns.length === 0) {
-    return <div>No campaigns found.</div>; // Handle empty data
-  }
+  // if (campaigns.length === 0) {
+  //   return <div>No campaigns found.</div>; // Handle empty data
+  // }
 
   return (
     <div className="flex flex-wrap gap-4 p-6 mx-auto w-full h-full">

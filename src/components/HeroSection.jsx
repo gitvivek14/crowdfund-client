@@ -192,49 +192,7 @@ const HeroSection = ()=> {
         </p>
           </div>
         <div>
-        <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Happening WorldWide..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          {/* <CommandInput placeholder="Search framework..." /> */}
-          <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+        
         </div>
         
       </div>
@@ -259,12 +217,9 @@ const HeroSection = ()=> {
             <img src="https://www.nspcc.org.uk/globalassets/images/events/2024/hero-25219-exp-2024-01.jpg?width=600&mode=crop&anchor=middlecenter" alt="Gallery Image 4" className="gallery-image" />
             <img src="https://www.letsroam.com/explorer/wp-content/uploads/sites/10/2021/09/Planning-a-Charity-Event.jpg" alt="Gallery Image 5" className="gallery-image" />
           </div>
-
-          {/* Duplicate row for continuous scrolling */}
         </div>
+        {/* <div className="flex space-x-2 animate-scroll delay-1000">
 
-        <div className="flex space-x-2 animate-scroll delay-1000">
-          {/* Row 2 */}
           <div className="flex min-w-full space-x-8 mb-4">
             <img src="https://www.daischina.org/-/media/dais-dalian/news-and-events/ah2a6584.jpg?h=400&w=600&rev=a20ec78d4f7a4e47846f6c5f13a6c13d&hash=024E78ED5DC353D3F8DC9E97D5E57EB9" alt="Gallery Image 6" className="gallery-image" />
             <img src="https://runabc.co.uk/images/2020/03/charity-run2-552235.jpg" alt="Gallery Image 7" className="gallery-image" />
@@ -272,13 +227,11 @@ const HeroSection = ()=> {
             <img src="https://www.classy.org/wp-content/uploads/2023/03/blog-hero-fundraising-ideas-opt.png" alt="Gallery Image 9" className="gallery-image" />
             <img src="https://nonprofithub.org/wp-content/uploads/2022/05/Tech-Fundraising-blog-2.png" alt="Gallery Image 10" className="gallery-image" />
           </div>
-
-          {/* Duplicate row for continuous scrolling */}
-        </div>
+        </div> */}
       </section>
 
       {/* Image Gallery Section */}
-      <section className="w-full h-full mx-auto -mt-5">
+      {/* <section className="w-full h-full mx-auto -mt-5">
       <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
       <InfiniteMovingCards
         items={testimonials}
@@ -286,7 +239,7 @@ const HeroSection = ()=> {
         speed="slow"
       />
     </div>
-      </section>
+      </section> */}
       {/* Footer Section */}
       <footer className="bg-white dark:bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
