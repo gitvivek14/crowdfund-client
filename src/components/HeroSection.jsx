@@ -258,7 +258,7 @@ const HeroSection = ()=> {
                     <a href="/" className="hover:underline">SmartPledge</a>
                   </li>
                   <li>
-                    <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                    <a href="https://tailwindcss.com/" className="hover:underline">About</a>
                   </li>
                 </ul>
               </div>

@@ -21,6 +21,11 @@ export const navlinks = [
     link: "/profile",
   },
   {
+    name:"Create",
+    imgUrl:createCampaign,
+    link:"/create-campaign"
+  },
+  {
     name : "Projects",
     imgUrl : money,
     link : "/projects"
@@ -29,5 +34,6 @@ export const navlinks = [
     name : "Charity",
     imgUrl : love,
     link : "/charities"
-  },
+  }
+
 ];

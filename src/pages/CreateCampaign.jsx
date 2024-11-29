@@ -11,7 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { createCampaign, connect } = useStateContext();
+  const { createCampaign, connect  , address} = useStateContext();
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -82,8 +82,9 @@ const CreateCampaign = () => {
             labelName="Your Name *"
             placeholder="John Doe"
             inputType="text"
-            value={form.name}
+            value={address}
             handleChange={(e) => handleFormFieldChange("name", e)}
+            disabled
           />
           <FormField
             labelName="Campaign Title *"
