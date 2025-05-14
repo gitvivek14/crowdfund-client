@@ -23,6 +23,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { InfiniteMovingCards } from "./MovingCards";
+import { Link } from "react-router-dom";
  
 const frameworks = [
   {
@@ -133,12 +134,17 @@ const HeroSection = ()=> {
 
           {/* Buttons */}
           <div className="flex space-x-4 mb-8">
+            <Link to='/charities'>
             <Button variant="destructive">
               Donate to Charity
             </Button>
+            </Link>
+            <Link to="/projects">
             <Button variant="secondary">
               Back a Project
             </Button>
+            </Link>
+            
           </div>
 
           {/* Scroll Down Arrow */}
