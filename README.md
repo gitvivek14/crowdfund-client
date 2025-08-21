@@ -46,11 +46,11 @@ Make sure you have Node.js and npm (or yarn/pnpm) installed on your machine.
 
 1.  Clone the repository:
     ```sh
-    git clone https://github.com/your-username/jain-sameer-crowdfund-client.git
+    git clone https://github.com/gitvivek14/crowdfund-client.git
     ```
 2.  Navigate to the project directory:
     ```sh
-    cd jain-sameer-crowdfund-client
+    cd crowdfund-client
     ```
 3.  Install the required NPM packages:
     ```sh
