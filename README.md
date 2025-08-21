@@ -1,4 +1,4 @@
-# Crowdfund Client
+# Crowdfunding Platform
 
 This is the client-side application for a modern, decentralized crowdfunding platform. Built with React and Vite, it provides a seamless and intuitive user experience for creating, managing, and contributing to various campaigns.
 
@@ -67,7 +67,7 @@ Make sure you have Node.js and npm (or yarn/pnpm) installed on your machine.
 The project is organized with a clear and scalable structure to separate concerns and improve maintainability.
 
 ```
-└── jain-sameer-crowdfund-client/
+└── -crowdfund-client/
     ├── README.md
     ├── package.json
     ├── vite.config.js
